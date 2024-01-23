@@ -6,27 +6,85 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
-
+      if (profile.active) {
+        if(reason ) {
+          profile.active = false;
+          profile.reason = reason
+        } else {
+          return "confirm status manually"
+        }
+        
+      } else {
+        delete profile.reason
+        profile.active = true
+      }
+      return profile
     }
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
+      if (x < 1 || x > 3 || y < 1 || y > 3) {
+        return "invalid coordinates"
+      }
 
+      let square = grid[y-1][x-1]
+
+      if(square === "🟥") {
+        return "🟥 💀"
+      } else if(square ==="🟦") {
+        return "🟦 🥳"
+      }
     }
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
+      let result = {};
 
+      for(let key in obj) {
+        if(key.length > 9) {
+          return "shorten all prop names to 9 chars or less"
+        }
+        const value = obj[key]
+        if(value === 0){
+          result[key] = false;
+        } else if(value === 1) {
+          result[key] = true;
+        } else if (value !== null) {
+          result[key] = value
+        }
+      }
+      return result
     }
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
+      // console.log(forbidden)
+     if(text === "" || forbidden.length === 0){
+      return text
+     }
+     const words = text.split(" ")
+    //  console.log(words)
 
+     const xText = words.map((word) => {
+      const lowerCase = word.toLowerCase();
+      // console.log(lowerCase)
+      if(forbidden.includes(lowerCase)){
+        return "x".repeat(word.length)
+      }
+      return word;
+     }).join(" ")
+    //  console.log(xText)
+     return xText
     }
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
+      if(num.length !== 10) {
+        console.error("Invalid, phone number must be 10 digits.")
+      }
 
+    const formattedNumber = `(${num.slice(0, 3)}) ${num.slice(3, 6)}-${num.slice(6)}`;
+    return formattedNumber;
     }
 
     // 👉 CHALLENGE 6 (bonus, NOT graded)
